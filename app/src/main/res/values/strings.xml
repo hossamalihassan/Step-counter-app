@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Step Counter</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="startBtnText">Start</string>
+    <string name="stopBtnText">Stop</string>
+    <string name="goodMorning">Good Morning</string>
+    <string name="goodEvening">Good Evening</string>
+</resources>
