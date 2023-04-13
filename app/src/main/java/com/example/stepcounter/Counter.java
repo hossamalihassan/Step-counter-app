@@ -278,7 +278,7 @@ public class Counter implements SensorEventListener, LocationListener  {
     public void saveToRepository() {
         Repository.setSteps(totalStepsCount);
         Repository.setDistance(totalDistance);
-        Repository.setTime(stopwatch.getStopwatchCount() + elapsedTime);
+        Repository.setTime(stopwatch.getStopwatchCount());
     }
 
     public long getLastUpdateTime() {
