@@ -27,6 +27,14 @@ public class SharedPreferencesHandler {
         sharedPreferences.edit().putString("stopwatch", value).apply();
     }
 
+    public void setGoal(int goal) {
+        sharedPreferences.edit().putInt("goal", goal).apply();
+    }
+
+    public void setDailyReminder(String dailyReminder) {
+        sharedPreferences.edit().putString("dailyReminder", dailyReminder).apply();
+    }
+
     public int getSteps(){
         return sharedPreferences.getInt("steps", 0);
     }
@@ -36,4 +44,8 @@ public class SharedPreferencesHandler {
     }
 
     public String getStopwatch() { return sharedPreferences.getString("stopwatch", ""); }
+
+    public int getGoal() { return sharedPreferences.getInt("goal", 0); }
+
+    public String getDailyReminder() { return sharedPreferences.getString("dailyReminder", ""); }
 }

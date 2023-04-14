@@ -8,8 +8,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.stepcounter.data.Repository;
-import com.example.stepcounter.data.SharedPreferencesHandler;
 import com.example.stepcounter.databinding.ActivityMainBinding;
+import com.example.stepcounter.fragments.HomeFragment;
+import com.example.stepcounter.fragments.SettingsFragment;
+import com.example.stepcounter.fragments.StatisticsFragment;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -35,10 +37,15 @@ public class MainActivity extends AppCompatActivity {
             requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
         }
 
-        Repository.getInstance(getApplicationContext());
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        changeFragment(HomeFragment.getHomeFragmentInstance());
+
+        Repository.getInstance(getApplicationContext()); // create repository instance
+        changeFragment(HomeFragment.getHomeFragmentInstance()); // set default fragment
+        // set default goal
+        if(Repository.getGoal() == 0){
+            Repository.setGoal(6000);
+        }
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()){
@@ -49,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
                     changeFragment(new StatisticsFragment());
                     break;
                 case R.id.settings:
-                    changeFragment(new SettingsFragment());
+                    changeFragment(SettingsFragment.getSettingsFragmentInstance());
                     break;
             }
             return true;

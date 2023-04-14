@@ -1,8 +1,12 @@
-package com.example.stepcounter;
+package com.example.stepcounter.fragments;
 
 import static android.content.Context.LOCATION_SERVICE;
 import static android.content.Context.SENSOR_SERVICE;
 
+import com.example.stepcounter.data.Repository;
+import com.example.stepcounter.helpers.Counter;
+import com.example.stepcounter.R;
+import com.example.stepcounter.helpers.Stopwatch;
 import com.example.stepcounter.data.SharedPreferencesHandler;
 
 import android.hardware.Sensor;
@@ -108,6 +112,12 @@ public class HomeFragment extends Fragment {
         counter.setStopwatch(stopwatch);
         counter.setStopwatchText(stopwatchText);
 
+        TextView userAchievedHisGoalText = (TextView) view.findViewById((R.id.userAchievedHisGoalText));
+        counter.setUserAchievedHisGoalText(userAchievedHisGoalText);
+
+        TextView goalToAchieveText = (TextView) view.findViewById((R.id.goalToAchieve));
+        setGoalToAchieveTextContent(goalToAchieveText);
+
         Button startBtn = (Button) view.findViewById(R.id.startBtn);
         startOrStop(startBtn);
         startBtn.setOnClickListener(v -> {
@@ -133,6 +143,11 @@ public class HomeFragment extends Fragment {
             HomeFragmentInstance = new HomeFragment();
         }
         return HomeFragmentInstance;
+    }
+
+    public void setGoalToAchieveTextContent(TextView goalToAchieveText) {
+        String goalToAchieveTextContent = "/" + Repository.getGoal();
+        goalToAchieveText.setText(goalToAchieveTextContent);
     }
 
     public void changeGreeting(TextView greetingText) {

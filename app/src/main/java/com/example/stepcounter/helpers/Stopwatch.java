@@ -1,4 +1,4 @@
-package com.example.stepcounter;
+package com.example.stepcounter.helpers;
 
 import android.os.SystemClock;
 import android.util.Log;

@@ -1,4 +1,7 @@
-package com.example.stepcounter;
+package com.example.stepcounter.helpers;
+
+import static android.view.View.INVISIBLE;
+import static android.view.View.VISIBLE;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -19,7 +22,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import com.example.stepcounter.data.Repository;
-import com.example.stepcounter.data.SharedPreferencesHandler;
 
 public class Counter implements SensorEventListener, LocationListener  {
     // counter variables
@@ -30,7 +32,7 @@ public class Counter implements SensorEventListener, LocationListener  {
     private Location lastLocation;
     private long lastUpdateTime;
     private float totalDistance;
-    private TextView stepsCountText, kilometersText, caloriesText, minutesText;
+    private TextView stepsCountText, kilometersText, caloriesText, userAchievedHisGoalText;
     private double accel_previousMagnitude = 9;
     private double accel_nextMagnitude = 0;
     private static final long accel_COOLDOWN_PERIOD = 500;
@@ -85,11 +87,8 @@ public class Counter implements SensorEventListener, LocationListener  {
                     setStepsCountTextContent();
                 }
             }
-//            if(stepCountAccel >= goal){
-//                findViewById(R.id.goalAchieved).setVisibility(View.VISIBLE);
-//            } else {
-//                findViewById(R.id.goalAchieved).setVisibility(View.INVISIBLE);
-//            }
+
+            checkIfUserAchievedHisGoal();
 
             accel_nextMagnitude = filteredMagnitude;
             accel_previousMagnitude = accel_nextMagnitude;
@@ -129,6 +128,14 @@ public class Counter implements SensorEventListener, LocationListener  {
         }
     }
 
+    public void checkIfUserAchievedHisGoal() {
+        if(totalStepsCount >= SettingsHandler.getGoal()){
+            userAchievedHisGoalText.setVisibility(VISIBLE);
+        } else {
+            userAchievedHisGoalText.setVisibility(INVISIBLE);
+        }
+    }
+
     public void toggleIsCounting() {
         this.isCounting = !this.isCounting;
         if(!isCounting) {
@@ -143,6 +150,10 @@ public class Counter implements SensorEventListener, LocationListener  {
 
     public int getTotalStepsCount() {
         return totalStepsCount;
+    }
+
+    public void setUserAchievedHisGoalText(TextView userAchievedHisGoalText) {
+        this.userAchievedHisGoalText = userAchievedHisGoalText;
     }
 
     public void setAccelerometerSensor(Sensor accelerometerSensor) {
@@ -264,28 +275,16 @@ public class Counter implements SensorEventListener, LocationListener  {
     }
 
     public void setStopwatchTextContent() {
-        Log.d("repo time", Repository.getTime());
         if(!isCounting){
             stopwatchValue = Repository.getTime();
             stopwatch.setSavedStopwatch(stopwatchValue);
             stopwatchText.setText(stopwatchValue);
-        } else {
-//            stopwatchText.setText(stopwatch.getStopwatchCount());
         }
-        Log.d("time", stopwatch.getStopwatchCount());
     }
 
     public void saveToRepository() {
         Repository.setSteps(totalStepsCount);
         Repository.setDistance(totalDistance);
         Repository.setTime(stopwatch.getStopwatchCount());
-    }
-
-    public long getLastUpdateTime() {
-        return lastUpdateTime;
-    }
-
-    public void setElapsedTime(long elapsedTime) {
-        this.elapsedTime = elapsedTime;
     }
 }
