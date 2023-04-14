@@ -1,9 +1,5 @@
 package com.example.stepcounter.fragments;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.app.TimePickerDialog;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -13,14 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
-import com.example.stepcounter.MainActivity;
 import com.example.stepcounter.R;
 import com.example.stepcounter.data.Repository;
 import com.example.stepcounter.helpers.SettingsHandler;
-
-import java.util.Calendar;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -80,6 +72,7 @@ public class SettingsFragment extends Fragment {
         TextView goalInput = view.findViewById(R.id.goalInput);
         settingsHandler.setGoalInput(goalInput);
         settingsHandler.setActivity(getActivity());
+        settingsHandler.createNotificationChannel();
 
         Button setGoalBtn = (Button) view.findViewById(R.id.setGoalBtn);
         setGoalBtn.setOnClickListener(v -> {

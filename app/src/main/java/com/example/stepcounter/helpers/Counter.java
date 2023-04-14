@@ -129,7 +129,7 @@ public class Counter implements SensorEventListener, LocationListener  {
     }
 
     public void checkIfUserAchievedHisGoal() {
-        if(totalStepsCount >= SettingsHandler.getGoal()){
+        if(totalStepsCount >= Repository.getGoal()){
             userAchievedHisGoalText.setVisibility(VISIBLE);
         } else {
             userAchievedHisGoalText.setVisibility(INVISIBLE);
@@ -152,6 +152,9 @@ public class Counter implements SensorEventListener, LocationListener  {
         return totalStepsCount;
     }
 
+    public float getTotalDistance() {
+        return totalDistance;
+    }
     public void setUserAchievedHisGoalText(TextView userAchievedHisGoalText) {
         this.userAchievedHisGoalText = userAchievedHisGoalText;
     }

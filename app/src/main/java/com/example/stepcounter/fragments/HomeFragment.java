@@ -17,6 +17,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -161,4 +162,17 @@ public class HomeFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        if(!counter.getIsCounting()) {
+            saveToRepository();
+        }
+    }
+
+    public void saveToRepository() {
+        Repository.setSteps(counter.getTotalStepsCount());
+        Repository.setDistance(counter.getTotalDistance());
+        Repository.setTime(stopwatch.getStopwatchCount());
+    }
 }
