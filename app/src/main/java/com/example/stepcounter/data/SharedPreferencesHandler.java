@@ -35,6 +35,10 @@ public class SharedPreferencesHandler {
         sharedPreferences.edit().putString("dailyReminder", dailyReminder).apply();
     }
 
+    public void setUsername(String username) {
+        sharedPreferences.edit().putString("username", username).apply();
+    }
+
     public int getSteps(){
         return sharedPreferences.getInt("steps", 0);
     }
@@ -48,4 +52,6 @@ public class SharedPreferencesHandler {
     public int getGoal() { return sharedPreferences.getInt("goal", 0); }
 
     public String getDailyReminder() { return sharedPreferences.getString("dailyReminder", ""); }
+
+    public String getUsername() { return sharedPreferences.getString("username", ""); }
 }

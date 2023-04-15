@@ -85,6 +85,12 @@ public class SettingsFragment extends Fragment {
         setDilayReminderBtn.setOnClickListener(v -> {
             settingsHandler.showDailyReminderTimeDialog(reminderTimePicked);
         });
+
+        Button resetCounterBtn = (Button) view.findViewById(R.id.resetCounterBtn);
+        resetCounterBtn.setOnClickListener(v -> {
+            settingsHandler.resetCounter();
+        });
+
         return view;
     }
 

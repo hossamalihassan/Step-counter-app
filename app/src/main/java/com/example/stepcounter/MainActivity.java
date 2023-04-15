@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.stepcounter.activities.Onboarding;
 import com.example.stepcounter.data.Repository;
 import com.example.stepcounter.databinding.ActivityMainBinding;
 import com.example.stepcounter.fragments.HomeFragment;
@@ -14,9 +15,12 @@ import com.example.stepcounter.fragments.SettingsFragment;
 import com.example.stepcounter.fragments.StatisticsFragment;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,6 +31,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Repository.getInstance(getApplicationContext()); // create repository instance
+        if(Objects.equals(Repository.getUsername(), "")){
+            Intent intent = new Intent(this, Onboarding.class);
+            startActivity(intent);
+        }
 
         // ask for permission
         if ((ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACTIVITY_RECOGNITION)
@@ -40,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        Repository.getInstance(getApplicationContext()); // create repository instance
         changeFragment(HomeFragment.getHomeFragmentInstance()); // set default fragment
         // set default goal
         if(Repository.getGoal() == 0){

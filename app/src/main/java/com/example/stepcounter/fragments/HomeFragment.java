@@ -118,6 +118,7 @@ public class HomeFragment extends Fragment {
 
         TextView goalToAchieveText = (TextView) view.findViewById((R.id.goalToAchieve));
         setGoalToAchieveTextContent(goalToAchieveText);
+        counter.checkIfUserAchievedHisGoal();
 
         Button startBtn = (Button) view.findViewById(R.id.startBtn);
         startOrStop(startBtn);

@@ -22,6 +22,7 @@
             android:text="Settings"
             android:textColor="#002B5B"
             android:textSize="24sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -94,6 +95,66 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/resetCounterLayout"
+            android:layout_width="350dp"
+            android:layout_height="131dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/all_rounded_shape"
+            android:gravity="center_horizontal|center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/StepsCountGoalLayout">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="-20dp"
+                android:gravity="center_horizontal|center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/resetCounterTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/fjord_one"
+                    android:text="Reset counter"
+                    android:textColor="#000000"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/resetCounterDescription"
+                    android:layout_width="187dp"
+                    android:layout_height="54dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/fjord_one"
+                    android:text="Reset step counts, calories burnt, total distance walked and time."
+                    android:textColor="#4E4E4E" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/resetCounterBtn"
+                    android:layout_width="113dp"
+                    android:layout_height="37dp"
+                    android:layout_gravity="center_vertical|end"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/rounded_button"
+                    android:text="Reset
+"
+                    android:textColor="#E2DACD"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/DailyReminderLayout"
             android:layout_width="350dp"
             android:layout_height="131dp"
@@ -101,6 +162,7 @@
             android:background="@drawable/all_rounded_shape"
             android:gravity="center_horizontal|center_vertical"
             android:orientation="horizontal"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.491"
             app:layout_constraintStart_toStartOf="parent"
@@ -164,4 +226,5 @@
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </FrameLayout>

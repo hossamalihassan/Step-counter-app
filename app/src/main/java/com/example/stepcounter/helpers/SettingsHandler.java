@@ -28,6 +28,12 @@ public class SettingsHandler {
     public SettingsHandler() {}
 
     public void updateGoal() {
+        String goalInputText = this.goalInput.getText().toString();
+        if(goalInputText.equals("")) {
+            Toast.makeText(activity.getApplicationContext(), "Steps count can't be null", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         goal = Integer.parseInt(this.goalInput.getText().toString());
         if(goal < 999999999){
             Repository.setGoal(goal);
@@ -83,6 +89,12 @@ public class SettingsHandler {
             NotificationManager notificationManager = activity.getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(notificationChannel);
         }
+    }
+
+    public void resetCounter() {
+        Repository.setTime("00:00");
+        Repository.setDistance(0);
+        Repository.setSteps(0);
     }
 
 //    public void createNotification() {

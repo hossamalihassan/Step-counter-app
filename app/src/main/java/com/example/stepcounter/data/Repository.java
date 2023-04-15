@@ -57,4 +57,12 @@ public class Repository {
     public static void setDailyReminder(String dailyReminder){
         handler.setDailyReminder(dailyReminder);
     }
+
+    public static String getUsername() {
+        return handler.getUsername();
+    }
+
+    public static void setUsername(String username) {
+        handler.setUsername(username);
+    }
 }
