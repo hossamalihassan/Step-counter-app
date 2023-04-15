@@ -35,6 +35,10 @@ public class SharedPreferencesHandler {
         sharedPreferences.edit().putString("dailyReminder", dailyReminder).apply();
     }
 
+    public void setProfilePicPath(String dailyReminder) {
+        sharedPreferences.edit().putString("profilePicPath", dailyReminder).apply();
+    }
+
     public void setUsername(String username) {
         sharedPreferences.edit().putString("username", username).apply();
     }
@@ -54,4 +58,6 @@ public class SharedPreferencesHandler {
     public String getDailyReminder() { return sharedPreferences.getString("dailyReminder", ""); }
 
     public String getUsername() { return sharedPreferences.getString("username", ""); }
+
+    public String getProfilePicPath () { return sharedPreferences.getString("profilePicPath", ""); }
 }

@@ -65,4 +65,12 @@ public class Repository {
     public static void setUsername(String username) {
         handler.setUsername(username);
     }
+
+    public static String getProfilePicPath() {
+        return handler.getProfilePicPath();
+    }
+
+    public static void setProfilePicPath(String profilePicPath) {
+        handler.setProfilePicPath(profilePicPath);
+    }
 }

@@ -40,8 +40,8 @@ public class Counter implements SensorEventListener, LocationListener  {
     private double accel_threshold = 10; // Peak detection threshold
     private static final float SPEED_THRESHOLD = 1.0f;
     private double alpha = 0.1; // Smoothing factor
-    private int stepCountAccel = 0;
-    private int stepCounterCount = 0;
+    private static int stepCountAccel = 0;
+    private static int stepCounterCount = 0;
     private int totalStepsCount = 0;
     private int savedSteps = 0;
     private int prevStepCount = 0;
@@ -61,6 +61,7 @@ public class Counter implements SensorEventListener, LocationListener  {
     private String stopwatchValue;
     private Chronometer stopwatchText;
     private Stopwatch stopwatch;
+    private boolean achievedGoal;
 
     private Counter() {
         this.isCounting = false;
@@ -131,8 +132,10 @@ public class Counter implements SensorEventListener, LocationListener  {
     public void checkIfUserAchievedHisGoal() {
         if(totalStepsCount >= Repository.getGoal()){
             userAchievedHisGoalText.setVisibility(VISIBLE);
+            achievedGoal = true;
         } else {
             userAchievedHisGoalText.setVisibility(INVISIBLE);
+            achievedGoal = false;
         }
     }
 
@@ -289,5 +292,14 @@ public class Counter implements SensorEventListener, LocationListener  {
         Repository.setSteps(totalStepsCount);
         Repository.setDistance(totalDistance);
         Repository.setTime(stopwatch.getStopwatchCount());
+    }
+
+    public boolean getAchievedGoal() {
+        return achievedGoal;
+    }
+
+    public static void resetCounter() {
+        stepCountAccel = 0;
+        stepCounterCount = 0;
     }
 }

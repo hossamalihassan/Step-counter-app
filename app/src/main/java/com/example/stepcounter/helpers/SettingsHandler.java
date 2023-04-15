@@ -95,6 +95,7 @@ public class SettingsHandler {
         Repository.setTime("00:00");
         Repository.setDistance(0);
         Repository.setSteps(0);
+        Counter.resetCounter();
     }
 
 //    public void createNotification() {

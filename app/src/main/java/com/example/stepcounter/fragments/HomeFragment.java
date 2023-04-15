@@ -6,6 +6,7 @@ import static android.content.Context.SENSOR_SERVICE;
 import com.example.stepcounter.data.Repository;
 import com.example.stepcounter.helpers.Counter;
 import com.example.stepcounter.R;
+import com.example.stepcounter.helpers.DatabaseHelper;
 import com.example.stepcounter.helpers.Stopwatch;
 import com.example.stepcounter.data.SharedPreferencesHandler;
 
@@ -17,6 +18,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,12 +43,11 @@ public class HomeFragment extends Fragment {
     Sensor stepCounterSensor;
     Counter counter;
     Stopwatch stopwatch;
-    private long destroyedViewTime = 0;
     Chronometer stopwatchText;
-    SharedPreferencesHandler sharedPreferencesHandler;
-    private static final String PREFS_NAME = "MyStepCounts";
-
     private static HomeFragment HomeFragmentInstance;
+
+    private DatabaseHelper databaseHelper;
+
     private HomeFragment() {
         this.counter = Counter.getCounterInstance();
         this.stopwatch = new Stopwatch();
@@ -120,6 +121,9 @@ public class HomeFragment extends Fragment {
         setGoalToAchieveTextContent(goalToAchieveText);
         counter.checkIfUserAchievedHisGoal();
 
+        TextView usernameGreeting = (TextView) view.findViewById((R.id.usernameGreeting));
+        usernameGreeting.setText(Repository.getUsername());
+
         Button startBtn = (Button) view.findViewById(R.id.startBtn);
         startOrStop(startBtn);
         startBtn.setOnClickListener(v -> {
@@ -137,6 +141,7 @@ public class HomeFragment extends Fragment {
         } else {
             stopwatch.stopCounting();
             startBtn.setText(R.string.startBtnText);
+            DatabaseHelper.addLog(counter.getTotalStepsCount(), counter.getAchievedGoal());
         }
     }
 
@@ -166,7 +171,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        if(!counter.getIsCounting()) {
+        if(counter.getIsCounting()) {
             saveToRepository();
         }
     }

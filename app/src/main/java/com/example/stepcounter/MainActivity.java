@@ -13,6 +13,7 @@ import com.example.stepcounter.databinding.ActivityMainBinding;
 import com.example.stepcounter.fragments.HomeFragment;
 import com.example.stepcounter.fragments.SettingsFragment;
 import com.example.stepcounter.fragments.StatisticsFragment;
+import com.example.stepcounter.helpers.DatabaseHelper;
 
 import android.Manifest;
 import android.content.Intent;
@@ -54,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
         if(Repository.getGoal() == 0){
             Repository.setGoal(6000);
         }
+
+        DatabaseHelper.getDatabaseHelperInstance(this);
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()){

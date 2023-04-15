@@ -2,37 +2,27 @@ package com.example.stepcounter.activities;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
 
-import android.Manifest;
-import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.stepcounter.R;
 import com.example.stepcounter.helpers.CameraHandler;
+import com.example.stepcounter.helpers.OnboardingHandler;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.net.URI;
 
 public class Onboarding extends AppCompatActivity {
 
-    CameraHandler cameraHandler;
+    private long takenAt;
+    private CameraHandler cameraHandler;
+    private OnboardingHandler onboardingHandler;
     private final int CAMERA_REQUEST_CODE = 22;
 
     @Override
@@ -41,12 +31,18 @@ public class Onboarding extends AppCompatActivity {
         setContentView(R.layout.activity_onboarding);
 
         cameraHandler = new CameraHandler();
-        cameraHandler.setActivity(this);
-        cameraHandler.getPermissions();
+        onboardingHandler = new OnboardingHandler();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
     public void takeAPhoto(View v) {
+        // handles taking profile picture
+        takenAt = System.currentTimeMillis();
+
+        cameraHandler.setActivity(this);
+        cameraHandler.getPermissions();
+        cameraHandler.setTakenAt(takenAt);
+
         Uri imgPath = null;
         try {
             imgPath = cameraHandler.createProfilePicture();
@@ -65,5 +61,18 @@ public class Onboarding extends AppCompatActivity {
             ImageView profilePicView = (ImageView) findViewById(R.id.profilePicView);
             profilePicView.setImageURI(cameraHandler.getImageUri());
         }
+    }
+
+    public void registerUser(View v) {
+        // handle user inputs
+        TextView usernameTextView = (TextView) findViewById(R.id.setNameText);
+        onboardingHandler.setUsernameTextView(usernameTextView);
+        TextView goalTextView = (TextView) findViewById(R.id.setGoalText);
+        onboardingHandler.setGoalTextView(goalTextView);
+
+        onboardingHandler.setProfilePicPath(cameraHandler.getImgName());
+        onboardingHandler.setActivity(this);
+
+        onboardingHandler.registerUser();
     }
 }
