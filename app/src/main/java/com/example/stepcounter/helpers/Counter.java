@@ -31,7 +31,7 @@ public class Counter implements SensorEventListener, LocationListener  {
     private SensorsHandler sensorsHandler;
     private Location lastLocation;
     private long lastUpdateTime;
-    private float totalDistance;
+    private static float totalDistance;
     private TextView stepsCountText, kilometersText, caloriesText, userAchievedHisGoalText;
     private double accel_previousMagnitude = 9;
     private double accel_nextMagnitude = 0;
@@ -140,9 +140,15 @@ public class Counter implements SensorEventListener, LocationListener  {
     }
 
     public void toggleIsCounting() {
+        Log.d("distance", String.valueOf(getTotalDistance()));
         this.isCounting = !this.isCounting;
         if(!isCounting) {
             saveToRepository();
+            if(DatabaseHelper.didTheUserWorkoutToday()){
+                DatabaseHelper.updateLog(getTotalStepsCount(), getTotalDistance(), getAchievedGoal());
+            } else {
+                DatabaseHelper.addLog(getTotalStepsCount(), getTotalDistance(), getAchievedGoal());
+            }
         }
         toggleRegistrationSensor();
     }
@@ -301,5 +307,6 @@ public class Counter implements SensorEventListener, LocationListener  {
     public static void resetCounter() {
         stepCountAccel = 0;
         stepCounterCount = 0;
+        totalDistance = 0;
     }
 }

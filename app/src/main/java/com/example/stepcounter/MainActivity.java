@@ -12,7 +12,8 @@ import com.example.stepcounter.data.Repository;
 import com.example.stepcounter.databinding.ActivityMainBinding;
 import com.example.stepcounter.fragments.HomeFragment;
 import com.example.stepcounter.fragments.SettingsFragment;
-import com.example.stepcounter.fragments.StatisticsFragment;
+import com.example.stepcounter.fragments.ProfileFragment;
+import com.example.stepcounter.helpers.Counter;
 import com.example.stepcounter.helpers.DatabaseHelper;
 
 import android.Manifest;
@@ -20,6 +21,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 
 import java.util.Objects;
 
@@ -42,9 +44,7 @@ public class MainActivity extends AppCompatActivity {
         if ((ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACTIVITY_RECOGNITION)
                 != PackageManager.PERMISSION_GRANTED) && (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED)) {
-            requestPermissions(new String[]{Manifest.permission.ACTIVITY_RECOGNITION}, 1);
-            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-            requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
+            requestPermissions(new String[]{Manifest.permission.ACTIVITY_RECOGNITION, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
         }
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
@@ -57,14 +57,17 @@ public class MainActivity extends AppCompatActivity {
         }
 
         DatabaseHelper.getDatabaseHelperInstance(this);
+        if(!DatabaseHelper.didTheUserWorkoutToday()) {
+            Counter.resetCounter();
+        }
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()){
                 case R.id.home:
                     changeFragment(HomeFragment.getHomeFragmentInstance());
                     break;
-                case R.id.stats:
-                    changeFragment(new StatisticsFragment());
+                case R.id.profile:
+                    changeFragment(ProfileFragment.getProfileFragmentInstance());
                     break;
                 case R.id.settings:
                     changeFragment(SettingsFragment.getSettingsFragmentInstance());

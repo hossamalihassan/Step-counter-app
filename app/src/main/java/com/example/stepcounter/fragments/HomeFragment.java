@@ -45,7 +45,6 @@ public class HomeFragment extends Fragment {
     Stopwatch stopwatch;
     Chronometer stopwatchText;
     private static HomeFragment HomeFragmentInstance;
-
     private DatabaseHelper databaseHelper;
 
     private HomeFragment() {
@@ -141,7 +140,6 @@ public class HomeFragment extends Fragment {
         } else {
             stopwatch.stopCounting();
             startBtn.setText(R.string.startBtnText);
-            DatabaseHelper.addLog(counter.getTotalStepsCount(), counter.getAchievedGoal());
         }
     }
 

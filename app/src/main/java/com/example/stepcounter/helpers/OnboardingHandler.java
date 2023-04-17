@@ -25,7 +25,7 @@ public class OnboardingHandler {
             Repository.setUsername(username);
             Repository.setGoal(goal);
             Repository.setProfilePicPath(profilePicPath);
-            Log.d("you are", "in");
+            activity.finish();
         }
     }
 
