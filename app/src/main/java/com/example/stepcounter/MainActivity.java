@@ -58,6 +58,9 @@ public class MainActivity extends AppCompatActivity {
 
         DatabaseHelper.getDatabaseHelperInstance(this);
         if(!DatabaseHelper.didTheUserWorkoutToday()) {
+            Repository.setTime("00:00");
+            Repository.setDistance(0);
+            Repository.setSteps(0);
             Counter.resetCounter();
         }
 

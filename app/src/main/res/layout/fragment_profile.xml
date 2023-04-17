@@ -51,10 +51,10 @@
             android:background="@drawable/all_rounded_shape"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.4"
+            app:layout_constraintHorizontal_bias="0.075"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.694" />
+            app:layout_constraintVertical_bias="0.635" />
 
         <TextView
             android:id="@+id/textView5"
@@ -67,10 +67,10 @@
             android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/logsView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.063"
+            app:layout_constraintHorizontal_bias="0.05"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.863" />
+            app:layout_constraintVertical_bias="0.727" />
 
         <LinearLayout
             android:layout_width="126dp"
@@ -84,7 +84,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/linearLayout4"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.367">
+            app:layout_constraintVertical_bias="0.325">
 
             <TextView
                 android:id="@+id/profile_totalSteps"
@@ -120,7 +120,7 @@
             app:layout_constraintHorizontal_bias="0.056"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.368">
+            app:layout_constraintVertical_bias="0.325">
 
             <TextView
                 android:id="@+id/profile_totalDistance"

@@ -97,6 +97,7 @@ public class ProfileHandler {
             totalDistance = totalDistanceCursor.getInt(0);
         }
 
+        Log.d("total distance", String.valueOf(totalDistance));
         totalStepsTextView.setText(String.valueOf(totalSteps));
         totalDistanceTextView.setText(String.valueOf(totalDistance));
     }

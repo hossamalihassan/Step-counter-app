@@ -140,7 +140,6 @@ public class Counter implements SensorEventListener, LocationListener  {
     }
 
     public void toggleIsCounting() {
-        Log.d("distance", String.valueOf(getTotalDistance()));
         this.isCounting = !this.isCounting;
         if(!isCounting) {
             saveToRepository();
@@ -162,7 +161,7 @@ public class Counter implements SensorEventListener, LocationListener  {
     }
 
     public float getTotalDistance() {
-        return totalDistance;
+        return totalDistance / 1000.0f;
     }
     public void setUserAchievedHisGoalText(TextView userAchievedHisGoalText) {
         this.userAchievedHisGoalText = userAchievedHisGoalText;
@@ -249,7 +248,6 @@ public class Counter implements SensorEventListener, LocationListener  {
             lastLocation = location;
 
             lastUpdateTime = currentTime;
-            Log.d("time", String.valueOf(lastUpdateTime));
         }
     }
 
