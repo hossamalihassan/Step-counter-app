@@ -42,41 +42,40 @@ public class SettingsHandler {
         }
     }
 
-    public void showDailyReminderTimeDialog(TextView reminderTimePicked) {
-        Calendar calendar = Calendar.getInstance();
-        int hour = calendar.get(Calendar.HOUR_OF_DAY);
-        int minute = calendar.get(Calendar.MINUTE);
-
-        TimePickerDialog timePickerDialog = new TimePickerDialog(activity, new TimePickerDialog.OnTimeSetListener() {
-
-            @Override
-            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                String timePickedFormat = hourOfDay + ":" + minute;
-                reminderTimePicked.setText(timePickedFormat);
-                Repository.setDailyReminder(timePickedFormat);
-                setDailyReminderAlarm();
-            }
-        }, hour, minute, false);
-
-        timePickerDialog.show();
-    }
-
-    public void setDailyReminderAlarm() {
-        String savedDailyReminder = Repository.getDailyReminder();
-        String[] dailyReminder = savedDailyReminder.split(":");
-        int hour = Integer.parseInt(dailyReminder[0]);
-        int minutes = Integer.parseInt(dailyReminder[1]);
-
-        Intent myIntent = new Intent(activity.getApplicationContext(), DailyReminderReceiver.class);
-        AlarmManager alarmManager = (AlarmManager) activity.getSystemService(ALARM_SERVICE);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(activity.getApplicationContext(), 0, myIntent, PendingIntent.FLAG_IMMUTABLE);
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MINUTE, minutes);
-        calendar.set(Calendar.HOUR_OF_DAY, hour);
-        alarmManager.setInexactRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-    }
+//    public void showDailyReminderTimeDialog(TextView reminderTimePicked) {
+//        Calendar calendar = Calendar.getInstance();
+//        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+//        int minute = calendar.get(Calendar.MINUTE);
+//
+//        TimePickerDialog timePickerDialog = new TimePickerDialog(activity, new TimePickerDialog.OnTimeSetListener() {
+//
+//            @Override
+//            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+//                String timePickedFormat = hourOfDay + ":" + minute;
+//                reminderTimePicked.setText(timePickedFormat);
+//                setDailyReminderAlarm();
+//            }
+//        }, hour, minute, false);
+//
+//        timePickerDialog.show();
+//    }
+//
+//    public void setDailyReminderAlarm() {
+//        String savedDailyReminder = Repository.getDailyReminder();
+//        String[] dailyReminder = savedDailyReminder.split(":");
+//        int hour = Integer.parseInt(dailyReminder[0]);
+//        int minutes = Integer.parseInt(dailyReminder[1]);
+//
+//        Intent myIntent = new Intent(activity.getApplicationContext(), DailyReminderReceiver.class);
+//        AlarmManager alarmManager = (AlarmManager) activity.getSystemService(ALARM_SERVICE);
+//        PendingIntent pendingIntent = PendingIntent.getBroadcast(activity.getApplicationContext(), 0, myIntent, PendingIntent.FLAG_IMMUTABLE);
+//
+//        Calendar calendar = Calendar.getInstance();
+//        calendar.set(Calendar.SECOND, 0);
+//        calendar.set(Calendar.MINUTE, minutes);
+//        calendar.set(Calendar.HOUR_OF_DAY, hour);
+//        alarmManager.setInexactRepeating(AlarmManager.RTC, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+//    }
 
     public void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {

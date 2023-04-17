@@ -81,10 +81,10 @@ public class SettingsFragment extends Fragment {
 
         TextView reminderTimePicked = (TextView) view.findViewById(R.id.reminderTimePicked);
         Button setDilayReminderBtn = (Button) view.findViewById(R.id.pickATime);
-        reminderTimePicked.setText(Repository.getDailyReminder());
-        setDilayReminderBtn.setOnClickListener(v -> {
-            settingsHandler.showDailyReminderTimeDialog(reminderTimePicked);
-        });
+
+//        setDilayReminderBtn.setOnClickListener(v -> {
+//            settingsHandler.showDailyReminderTimeDialog(reminderTimePicked);
+//        });
 
         Button resetCounterBtn = (Button) view.findViewById(R.id.resetCounterBtn);
         resetCounterBtn.setOnClickListener(v -> {

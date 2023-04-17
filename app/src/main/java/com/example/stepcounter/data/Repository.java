@@ -23,54 +23,46 @@ public class Repository {
 
 
     public static int getSteps() {
-        return handler.getSteps();
+        return handler.getInt("steps");
     }
 
     public static void setSteps(int steps) {
-        handler.setSteps(steps);
+        handler.storeInt("steps", steps);
     }
 
     public static float getDistance() {
-        return handler.getDistance();
+        return handler.getFloat("distance");
     }
 
     public static void setDistance(float distance) {
-        handler.setDistance(distance);
+        handler.storeFloat("distance", distance);
     }
 
     public static String getTime() {
-        return handler.getStopwatch();
+        return handler.getString("stopwatch");
     }
 
     public static void setTime(String time) {
-        handler.setStopwatch(time);
+        handler.storeString("stopwatch", time);
     }
 
-    public static int getGoal() { return handler.getGoal(); }
+    public static int getGoal() { return handler.getInt("goal"); }
 
-    public static void setGoal(int goal) { handler.setGoal(goal); }
-
-    public static String getDailyReminder() {
-        return handler.getDailyReminder();
-    }
-
-    public static void setDailyReminder(String dailyReminder){
-        handler.setDailyReminder(dailyReminder);
-    }
+    public static void setGoal(int goal) { handler.storeInt("goal", goal); }
 
     public static String getUsername() {
-        return handler.getUsername();
+        return handler.getString("username");
     }
 
     public static void setUsername(String username) {
-        handler.setUsername(username);
+        handler.storeString("username", username);
     }
 
     public static String getProfilePicPath() {
-        return handler.getProfilePicPath();
+        return handler.getString("profilePicPath");
     }
 
     public static void setProfilePicPath(String profilePicPath) {
-        handler.setProfilePicPath(profilePicPath);
+        handler.storeString("profilePicPath", profilePicPath);
     }
 }

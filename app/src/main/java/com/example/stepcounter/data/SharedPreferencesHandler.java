@@ -15,49 +15,27 @@ public class SharedPreferencesHandler {
         sharedPreferences = context.getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
     }
 
-    public void setSteps(int value){
-        sharedPreferences.edit().putInt("steps", value).apply();
+    public void storeInt(String key, int value){
+        sharedPreferences.edit().putInt(key, value).apply();
     }
 
-    public void setDistance(float value){
-        sharedPreferences.edit().putFloat("distance", value).apply();
+    public void storeFloat(String key, float value){
+        sharedPreferences.edit().putFloat(key, value).apply();
     }
 
-    public void setStopwatch(String value) {
-        sharedPreferences.edit().putString("stopwatch", value).apply();
+    public void storeString(String key, String value) {
+        sharedPreferences.edit().putString(key, value).apply();
     }
 
-    public void setGoal(int goal) {
-        sharedPreferences.edit().putInt("goal", goal).apply();
+    public String getString(String key) {
+        return sharedPreferences.getString(key, "");
     }
 
-    public void setDailyReminder(String dailyReminder) {
-        sharedPreferences.edit().putString("dailyReminder", dailyReminder).apply();
+    public int getInt(String key) {
+        return sharedPreferences.getInt(key, 0);
     }
 
-    public void setProfilePicPath(String dailyReminder) {
-        sharedPreferences.edit().putString("profilePicPath", dailyReminder).apply();
+    public float getFloat(String key){
+        return sharedPreferences.getFloat(key, 0);
     }
-
-    public void setUsername(String username) {
-        sharedPreferences.edit().putString("username", username).apply();
-    }
-
-    public int getSteps(){
-        return sharedPreferences.getInt("steps", 0);
-    }
-
-    public float getDistance(){
-        return sharedPreferences.getFloat("distance", 0);
-    }
-
-    public String getStopwatch() { return sharedPreferences.getString("stopwatch", ""); }
-
-    public int getGoal() { return sharedPreferences.getInt("goal", 0); }
-
-    public String getDailyReminder() { return sharedPreferences.getString("dailyReminder", ""); }
-
-    public String getUsername() { return sharedPreferences.getString("username", ""); }
-
-    public String getProfilePicPath () { return sharedPreferences.getString("profilePicPath", ""); }
 }

@@ -13,7 +13,6 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.widget.Chronometer;
 import android.widget.TextView;
 
@@ -22,13 +21,14 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import com.example.stepcounter.data.Repository;
+import com.example.stepcounter.sensorsHandler.AccelerometerSensorHandler;
+import com.example.stepcounter.sensorsHandler.StepCounterSensorHandler;
 
 public class Counter implements SensorEventListener, LocationListener  {
     // counter variables
     private Sensor accelerometerSensor, stepCounterSensor;
     private SensorManager sensorManager;
     private LocationManager locationManager;
-    private SensorsHandler sensorsHandler;
     private Location lastLocation;
     private long lastUpdateTime;
     private static float totalDistance;
@@ -63,48 +63,32 @@ public class Counter implements SensorEventListener, LocationListener  {
     private Stopwatch stopwatch;
     private boolean achievedGoal;
 
+    StepCounterSensorHandler stepCounterSensorHandler;
+    AccelerometerSensorHandler accelerometerSensorHandler;
+
     private Counter() {
         this.isCounting = false;
         this.inNormalSpeed = true;
-        this.sensorsHandler = new SensorsHandler();
+        stepCounterSensorHandler = StepCounterSensorHandler.getStepCounterSensorHandlerInstance();
+        accelerometerSensorHandler = AccelerometerSensorHandler.getAccelerometerSensorHandlerInstance();
     }
 
     @Override
     public void onSensorChanged(SensorEvent event) {
         if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-            double x = event.values[0];
-            double y = event.values[1];
-            double z = event.values[2];
-
-            double magnitude = Math.sqrt(x * x + y * y + z * z);
-            double filteredMagnitude = alpha * magnitude + (1 - alpha) * accel_previousMagnitude;
-
-            long now = System.currentTimeMillis();
-            if (now - accel_lastStepTime > accel_COOLDOWN_PERIOD) {
-                if (filteredMagnitude > accel_threshold && filteredMagnitude > accel_previousMagnitude && filteredMagnitude > accel_nextMagnitude && inNormalSpeed) {
-                    stepCountAccel++;
-                    accel_lastStepTime = now;
-                    // Update UI with step count
-                    setStepsCountTextContent();
-                }
-            }
-
-            checkIfUserAchievedHisGoal();
-
-            accel_nextMagnitude = filteredMagnitude;
-            accel_previousMagnitude = accel_nextMagnitude;
+            accelerometerSensorHandler.setInNormalSpeed(inNormalSpeed);
+            accelerometerSensorHandler.getAccelerometerCount(event.values[0], event.values[1], event.values[2]);
+            stepCountAccel = accelerometerSensorHandler.getStepCountAccel();
+            setStepsCountTextContent();
         }
 
         else if(event.sensor.getType() == Sensor.TYPE_STEP_COUNTER){
-            int count = (int) event.values[0];
-            Log.d("count", String.valueOf(event.values[0]));
-            float diff_in_count = count - prevStepCount;
-            if(count > stepCountAccel && prevStepCount > 0){
-                stepCounterCount += diff_in_count;
-            }
+            stepCounterSensorHandler.getStepCounterCount((int) event.values[0], stepCountAccel);
+            stepCounterCount = stepCounterSensorHandler.getStepCounterCount();
             setStepsCountTextContent();
-            prevStepCount = count;
         }
+
+        checkIfUserAchievedHisGoal();
     }
 
     @Override
@@ -169,17 +153,14 @@ public class Counter implements SensorEventListener, LocationListener  {
 
     public void setAccelerometerSensor(Sensor accelerometerSensor) {
         this.accelerometerSensor = accelerometerSensor;
-        this.sensorsHandler.setAccelerometerSensor(accelerometerSensor);
     }
 
     public void setStepCounterSensor(Sensor stepCounterSensor) {
         this.stepCounterSensor = stepCounterSensor;
-        this.sensorsHandler.setStepCounterSensor(stepCounterSensor);
     }
 
     public void setSensorManager(SensorManager sensorManager) {
         this.sensorManager = sensorManager;
-        this.sensorsHandler.setSensorManager(sensorManager);
     }
 
     public void setStopwatchText(Chronometer stopwatchText) {
@@ -214,12 +195,10 @@ public class Counter implements SensorEventListener, LocationListener  {
 
     public void setLocationManager(LocationManager locationManager) {
         this.locationManager = locationManager;
-        this.sensorsHandler.setLocationManager(locationManager);
     }
 
     public void setActivity(FragmentActivity activity) {
         this.activity = activity;
-        this.sensorsHandler.setActivity(activity);
     }
 
     @Override
