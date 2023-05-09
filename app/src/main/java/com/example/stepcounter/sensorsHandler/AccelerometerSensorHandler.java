@@ -41,6 +41,10 @@ public class AccelerometerSensorHandler {
         this.inNormalSpeed = inNormalSpeed;
     }
 
+    public void setStepCountAccel(int stepCountAccel) {
+        AccelerometerSensorHandler.stepCountAccel = stepCountAccel;
+    }
+
     public static AccelerometerSensorHandler getAccelerometerSensorHandlerInstance() {
         if(accelerometerSensorHandlerInstance == null){
             accelerometerSensorHandlerInstance = new AccelerometerSensorHandler();

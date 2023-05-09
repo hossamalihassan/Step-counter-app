@@ -21,7 +21,6 @@ public class Repository {
         return instance;
     }
 
-
     public static int getSteps() {
         return handler.getInt("steps");
     }

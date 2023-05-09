@@ -72,19 +72,11 @@ public class SettingsFragment extends Fragment {
         TextView goalInput = view.findViewById(R.id.goalInput);
         settingsHandler.setGoalInput(goalInput);
         settingsHandler.setActivity(getActivity());
-        settingsHandler.createNotificationChannel();
 
         Button setGoalBtn = (Button) view.findViewById(R.id.setGoalBtn);
         setGoalBtn.setOnClickListener(v -> {
             settingsHandler.updateGoal();
         });
-
-        TextView reminderTimePicked = (TextView) view.findViewById(R.id.reminderTimePicked);
-        Button setDilayReminderBtn = (Button) view.findViewById(R.id.pickATime);
-
-//        setDilayReminderBtn.setOnClickListener(v -> {
-//            settingsHandler.showDailyReminderTimeDialog(reminderTimePicked);
-//        });
 
         Button resetCounterBtn = (Button) view.findViewById(R.id.resetCounterBtn);
         resetCounterBtn.setOnClickListener(v -> {

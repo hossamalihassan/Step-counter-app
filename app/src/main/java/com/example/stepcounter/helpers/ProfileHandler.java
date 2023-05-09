@@ -68,7 +68,7 @@ public class ProfileHandler {
 
         Cursor cursor = DatabaseHelper.getLastFiveDaysLogs();
         if(cursor.getCount() == 0){
-            Log.d("no data", "yup");
+            Log.d("data", "no data");
         } else {
             while(cursor.moveToNext()){
                 log_date.add(cursor.getString(0));
@@ -97,7 +97,6 @@ public class ProfileHandler {
             totalDistance = totalDistanceCursor.getInt(0);
         }
 
-        Log.d("total distance", String.valueOf(totalDistance));
         totalStepsTextView.setText(String.valueOf(totalSteps));
         totalDistanceTextView.setText(String.valueOf(totalDistance));
     }

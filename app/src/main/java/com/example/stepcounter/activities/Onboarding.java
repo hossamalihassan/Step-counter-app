@@ -40,7 +40,6 @@ public class Onboarding extends AppCompatActivity {
         takenAt = System.currentTimeMillis();
 
         cameraHandler.setActivity(this);
-        cameraHandler.getPermissions();
         cameraHandler.setTakenAt(takenAt);
 
         Uri imgPath = null;

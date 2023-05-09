@@ -6,6 +6,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.stepcounter.data.Repository;
+import com.example.stepcounter.fragments.HomeFragment;
 
 public class OnboardingHandler {
 
@@ -18,9 +19,6 @@ public class OnboardingHandler {
     public OnboardingHandler() {}
 
     public void registerUser() {
-        username = usernameTextView.getText().toString();
-        goal = Integer.parseInt(goalTextView.getText().toString());
-
         if(validUsername() && validGoal()){
             Repository.setUsername(username);
             Repository.setGoal(goal);
@@ -47,10 +45,12 @@ public class OnboardingHandler {
 
     public void setGoalTextView(TextView goalTextView) {
         this.goalTextView = goalTextView;
+        setGoal(Integer.parseInt(this.goalTextView.getText().toString()));
     }
 
     public void setUsernameTextView(TextView usernameTextView) {
         this.usernameTextView = usernameTextView;
+        setUsername(this.usernameTextView.getText().toString());
     }
 
     public void setProfilePicPath(String profilePicPath) {
@@ -59,5 +59,29 @@ public class OnboardingHandler {
 
     public void setActivity(Activity activity) {
         this.activity = activity;
+    }
+
+    public Activity getActivity() {
+        return activity;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public int getGoal() {
+        return goal;
+    }
+
+    public String getProfilePicPath() {
+        return profilePicPath;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setGoal(int goal) {
+        this.goal = goal;
     }
 }

@@ -23,12 +23,6 @@
             android:name=".activities.Onboarding"
             android:exported="true">
         </activity>
-        <!-- <service -->
-        <!-- android:name=".services.DailyReminderService" -->
-        <!-- android:enabled="true" -->
-        <!-- android:exported="false" -->
-        <!-- android:permission="TODO"> -->
-        <!-- </service> -->
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
@@ -40,11 +34,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <receiver
-            android:name=".alarmReceiver.DailyReminderReceiver"
-            android:enabled="true"
-            android:exported="true" />
 
         <meta-data
             android:name="preloaded_fonts"

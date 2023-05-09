@@ -93,6 +93,7 @@
             android:background="@drawable/bottom_rounded_shape"
             android:fontFamily="@font/fjord_one"
             android:gravity="center"
+            android:onClick="onStartOrStopCounting"
             android:text="Start"
             android:textAlignment="center"
             android:textColor="#fff"

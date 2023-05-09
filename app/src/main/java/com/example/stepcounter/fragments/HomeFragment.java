@@ -91,6 +91,8 @@ public class HomeFragment extends Fragment {
         }
     }
 
+    static TextView usernameGreeting;
+    static TextView goalToAchieveText;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -116,18 +118,17 @@ public class HomeFragment extends Fragment {
         TextView userAchievedHisGoalText = (TextView) view.findViewById((R.id.userAchievedHisGoalText));
         counter.setUserAchievedHisGoalText(userAchievedHisGoalText);
 
-        TextView goalToAchieveText = (TextView) view.findViewById((R.id.goalToAchieve));
+        goalToAchieveText = (TextView) view.findViewById((R.id.goalToAchieve));
         setGoalToAchieveTextContent(goalToAchieveText);
         counter.checkIfUserAchievedHisGoal();
 
-        TextView usernameGreeting = (TextView) view.findViewById((R.id.usernameGreeting));
+        usernameGreeting = (TextView) view.findViewById((R.id.usernameGreeting));
         usernameGreeting.setText(Repository.getUsername());
 
         Button startBtn = (Button) view.findViewById(R.id.startBtn);
         startOrStop(startBtn);
         startBtn.setOnClickListener(v -> {
             counter.toggleIsCounting();
-
             startOrStop(startBtn);
         });
         return view;
@@ -178,5 +179,13 @@ public class HomeFragment extends Fragment {
         Repository.setSteps(counter.getTotalStepsCount());
         Repository.setDistance(counter.getTotalDistance());
         Repository.setTime(stopwatch.getStopwatchCount());
+    }
+
+    public static TextView getUsernameGreeting() {
+        return usernameGreeting;
+    }
+
+    public static TextView getGoalToAchieveText() {
+        return goalToAchieveText;
     }
 }
